@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time and Date</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"); 
+    @import url("https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css");
+    .font-fredoka { font-family: "Fredoka One", cursive; }
+  </style>
+  <body class="font-fredoka m-0">
+    <script>
+        const render = target => {
+            var current = new Date();
+            var lefttime = new Date();
+            const lastDay = 0;
+            const schooltime = new Date("September 12, 2022 08:20:00:000");
+            if(schooltime.getMonth() != current.getMonth()) {
+              lastDay =  new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
+            }
+            if(schooltime.getDate() + parseInt(lastDay - current.getDate()) >= 0 && //Gün
+                (schooltime.getHours() + (24 - current.getHours())) >= 0 && //Saat
+                     (schooltime.getMinutes() + (60 - current.getMinutes())) && //Dakika
+                         (schooltime.getSeconds() + (60 - current.getSeconds()))) { 
+             var lefttext = "Gün: " + (schooltime.getDate() + parseInt(lastDay - current.getDate())) + ", Saat: " + (schooltime.getHours() + (24 - current.getHours())) + ", Dakika: " + (schooltime.getMinutes() + (60 - current.getMinutes())) + ", Saniye: " + (schooltime.getSeconds() + (60 - current.getSeconds()))
+            } 
+            const template = document.createElement("template"); 
+            template.innerHTML = `
+            <main class="flex h-screen items-center justify-center w-screen">
+                <span class="m-2 text-blue-700 text-7xl">Son: ${lefttext}</span>
+            </main>
+            `;
+            if (template.innerHTML !== target.innerHTML) {
+            target.innerHTML = template.innerHTML;
+            }
+      };
+      render(document.body);
+      setInterval(() => render(document.body), 500);
+    </script>
+  </body>
+</html>
